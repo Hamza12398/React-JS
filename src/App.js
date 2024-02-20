@@ -29,11 +29,6 @@ function App() {
       title: "Fourth Post",
       body: "This is Body For Each Title and Body  and Body and Body",
     },
-    {
-      id: 5,
-      title: "Fourth Post",
-      body: "This is Body For Each Title ",
-    },
   ]
   return (
     <postsContext.Provider value={postData}>
