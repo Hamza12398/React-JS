@@ -1,10 +1,13 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes, Link } from "react-router-dom";
 import Hello from "./Hello";
 import Home from "./Home";
 import PostList from "./PostList";
 import PostDetails from "./PostDetails";
+import Error404 from "./Error404";
+import NewPost from "./NewPost";
+import Postlayout from "./PostLayout";
+import Delete from "./Delete";
 import { postsContext } from "./Contexts/PostsContext";
 
 function App() {
@@ -29,12 +32,7 @@ function App() {
       title: "Fourth Post",
       body: "This is Body For Each Title and Body  and Body and Body",
     },
-    {
-      id: 5,
-      title: "Five Post",
-      body: "This is Body For Each Title and Body  and Body and Body",
-    },
-  ]
+  ];
   return (
     <postsContext.Provider value={postData}>
       <div className="App">
@@ -42,7 +40,6 @@ function App() {
           <Link to="/">
             <button style={{ fontSize: "40px" }}>Home</button>
           </Link>
-
           <Link to="/Hello">
             <button style={{ fontSize: "40px" }}>Hello</button>
           </Link>
@@ -54,9 +51,16 @@ function App() {
         {/* ROUTER */}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Post" element={<PostList />} />
+          {/* NESTED & OULET ROUTES */}
+          <Route path="/Post" element={<Postlayout />}>
+            <Route index element={<PostList />} />
+            <Route path="/Post/:postId" element={<PostDetails />} />
+            <Route path="new" element={<NewPost />} />
+            <Route path="Delete" element={<Delete />} />
+          </Route>
+          {/* NESTED & OULET ROUTE */}
           <Route path="/Hello" element={<Hello />} />
-          <Route path="/PostDetails/:postId" element={<PostDetails />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </div>
     </postsContext.Provider>
